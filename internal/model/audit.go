@@ -107,10 +107,5 @@ func (v ImportBatchInput) Validate() error {
 	if len(v.Documents) == 0 {
 		return fmt.Errorf("batch must contain documents")
 	}
-	for index, document := range v.Documents {
-		if err := document.Validate(); err != nil {
-			return fmt.Errorf("document %d: %w", index, err)
-		}
-	}
 	return nil
 }
