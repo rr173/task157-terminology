@@ -58,6 +58,9 @@ func (s *Service) Publish(ctx context.Context, libraryID string) (model.Library,
 	if err != nil {
 		return v, err
 	}
+	if v.Status == model.LibraryRetired {
+		return v, fmt.Errorf("retired library is immutable")
+	}
 	terms, err := s.Terms(ctx, libraryID)
 	if err != nil {
 		return v, err
