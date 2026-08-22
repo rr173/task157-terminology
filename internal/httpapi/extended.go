@@ -3,6 +3,7 @@ package httpapi
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/rr173/task157-terminology/internal/model"
 )
@@ -108,6 +109,33 @@ func (a *API) audit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	write(w, v)
+}
+
+func (a *API) reviewQueue(w http.ResponseWriter, r *http.Request) {
+	limit, err := optionalInt(r.URL.Query().Get("limit"))
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	offset, err := optionalInt(r.URL.Query().Get("offset"))
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	query := model.ReviewQueueQuery{LibraryID: r.PathValue("id"), Language: r.URL.Query().Get("language"), Concept: r.URL.Query().Get("concept"), Status: model.SuggestionStatus(r.URL.Query().Get("status")), Limit: limit, Offset: offset}
+	v, err := a.S.ReviewQueue(r.Context(), query)
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	write(w, v)
+}
+
+func optionalInt(value string) (int, error) {
+	if value == "" {
+		return 0, nil
+	}
+	return strconv.Atoi(value)
 }
 
 func (a *API) search(w http.ResponseWriter, r *http.Request) {

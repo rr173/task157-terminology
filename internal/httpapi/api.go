@@ -22,6 +22,7 @@ func (a *API) Handler() http.Handler {
 	m.HandleFunc("GET /v1/libraries/{id}/coverage", a.coverage)
 	m.HandleFunc("GET /v1/libraries/{id}/export", a.export)
 	m.HandleFunc("GET /v1/libraries/{id}/audit", a.audit)
+	m.HandleFunc("GET /v1/libraries/{id}/review-queue", a.reviewQueue)
 	m.HandleFunc("GET /v1/libraries/{id}/batches", a.batches)
 	m.HandleFunc("POST /v1/libraries/{id}/terms", a.term)
 	m.HandleFunc("POST /v1/libraries/{id}/publish", a.publish)
