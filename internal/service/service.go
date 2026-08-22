@@ -147,7 +147,7 @@ func (s *Service) Check(ctx context.Context, libraryID string, ids []string) (mo
 	selected := []model.Document{}
 	for _, doc := range documents {
 		for _, id := range ids {
-			if doc.ID == id && doc.Status != model.DocumentSuperseded {
+			if doc.ID == id && doc.Status.Current() {
 				selected = append(selected, doc)
 			}
 		}
