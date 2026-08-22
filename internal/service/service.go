@@ -68,6 +68,13 @@ func (s *Service) Publish(ctx context.Context, libraryID string) (model.Library,
 	if len(terms) == 0 {
 		return v, fmt.Errorf("library requires terms")
 	}
+	issues, err := s.ValidateTermSet(ctx, libraryID)
+	if err != nil {
+		return v, err
+	}
+	if len(issues) > 0 {
+		return v, fmt.Errorf("library has conflicting terms: %s", issues[0])
+	}
 	v.Status = model.LibraryPublished
 	v.Version++
 	return v, s.store.Save(ctx, "library", v.ID, "", v.Version, v)
