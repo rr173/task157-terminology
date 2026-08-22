@@ -110,6 +110,9 @@ func (s *Service) TermUsage(ctx context.Context, libraryID string) ([]model.Term
 		usage[key] = &model.TermUsage{Concept: term.Concept, Language: term.Language, Preferred: term.Preferred}
 	}
 	for _, document := range documents {
+		if !document.Status.Current() {
+			continue
+		}
 		var fragments []model.Fragment
 		if err := s.store.List(ctx, "fragment", document.ID, &fragments); err != nil {
 			return nil, err
