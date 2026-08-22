@@ -1,8 +1,8 @@
 package consistency
 
 import (
-	"github.com/rr173/task157-terminology/internal/model"
 	"sort"
+	"terminology/internal/model"
 )
 
 type Summary struct {

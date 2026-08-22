@@ -1,8 +1,8 @@
 package matcher
 
 import (
-	"github.com/rr173/task157-terminology/internal/model"
 	"sort"
+	"terminology/internal/model"
 )
 
 func Scan(fragments []model.Fragment, terms []model.Term) []model.Hit {

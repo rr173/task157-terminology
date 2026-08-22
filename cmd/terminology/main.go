@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/rr173/task157-terminology/internal/httpapi"
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/service"
-	"github.com/rr173/task157-terminology/internal/store"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+	"terminology/internal/httpapi"
+	"terminology/internal/model"
+	"terminology/internal/service"
+	"terminology/internal/store"
 )
 
 func main() {

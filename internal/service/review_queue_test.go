@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/store"
+	"terminology/internal/model"
+	"terminology/internal/store"
 )
 
 func TestReviewQueueFiltersAndPagesSuggestions(t *testing.T) {

@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 // expireOpenSuggestionsForDocument closes review work tied to one document

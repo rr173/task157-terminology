@@ -1,9 +1,9 @@
 package consistency
 
 import (
-	"github.com/rr173/task157-terminology/internal/matcher"
-	"github.com/rr173/task157-terminology/internal/model"
 	"sort"
+	"terminology/internal/matcher"
+	"terminology/internal/model"
 )
 
 type Evidence struct {

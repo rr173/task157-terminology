@@ -4,8 +4,8 @@ import (
 	"context"
 	"sort"
 
-	"github.com/rr173/task157-terminology/internal/matcher"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/matcher"
+	"terminology/internal/model"
 )
 
 func (s *Service) Coverage(ctx context.Context, libraryID string) (model.CoverageReport, error) {

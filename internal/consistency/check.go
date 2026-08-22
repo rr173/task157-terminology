@@ -1,7 +1,7 @@
 package consistency
 
 import (
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func Suggestions(task model.CheckTask, docs []model.Document, fragments []model.Fragment, hits []model.Hit, terms []model.Term) []model.Suggestion {

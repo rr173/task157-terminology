@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/rr173/task157-terminology/internal/matcher"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/matcher"
+	"terminology/internal/model"
 )
 
 func (s *Service) RenameLibrary(ctx context.Context, id, name, actor string) (model.Library, error) {

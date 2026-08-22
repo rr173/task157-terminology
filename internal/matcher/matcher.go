@@ -1,7 +1,7 @@
 package matcher
 
 import (
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func Hits(fragment model.Fragment, terms []model.Term) []model.Hit {

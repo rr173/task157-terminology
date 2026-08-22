@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func (s *Service) Health(ctx context.Context) (map[string]any, error) {

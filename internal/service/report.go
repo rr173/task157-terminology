@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/rr173/task157-terminology/internal/model"
 	"sort"
+	"terminology/internal/model"
 )
 
 func (s *Service) LibraryReport(ctx context.Context, id string) (model.LibraryReport, error) {

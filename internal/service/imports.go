@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/rr173/task157-terminology/internal/matcher"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/matcher"
+	"terminology/internal/model"
 )
 
 func (s *Service) ImportBatch(ctx context.Context, libraryID string, input model.ImportBatchInput) (model.ImportBatch, error) {

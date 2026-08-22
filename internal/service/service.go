@@ -5,11 +5,11 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/rr173/task157-terminology/internal/consistency"
-	"github.com/rr173/task157-terminology/internal/matcher"
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/store"
 	"sync"
+	"terminology/internal/consistency"
+	"terminology/internal/matcher"
+	"terminology/internal/model"
+	"terminology/internal/store"
 	"time"
 )
 

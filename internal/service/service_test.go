@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/store"
 	"path/filepath"
+	"terminology/internal/model"
+	"terminology/internal/store"
 	"testing"
 )
 

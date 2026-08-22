@@ -3,7 +3,7 @@ package consistency
 import (
 	"testing"
 
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func TestRankOpenSuggestionsFirst(t *testing.T) {

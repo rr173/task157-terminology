@@ -2,9 +2,9 @@ package httpapi
 
 import (
 	"encoding/json"
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/service"
 	"net/http"
+	"terminology/internal/model"
+	"terminology/internal/service"
 )
 
 type API struct{ S *service.Service }

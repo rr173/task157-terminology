@@ -1,4 +1,4 @@
-module github.com/rr173/task157-terminology
+module terminology
 
 go 1.26.3
 

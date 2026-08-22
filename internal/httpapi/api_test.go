@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/rr173/task157-terminology/internal/model"
-	"github.com/rr173/task157-terminology/internal/service"
-	"github.com/rr173/task157-terminology/internal/store"
+	"terminology/internal/model"
+	"terminology/internal/service"
+	"terminology/internal/store"
 )
 
 func TestLibraryViewAndCoverageEndpoints(t *testing.T) {

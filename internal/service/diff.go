@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func (s *Service) Diff(ctx context.Context, earlier, later string) (model.Diff, error) {

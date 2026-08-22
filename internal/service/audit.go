@@ -6,7 +6,7 @@ import (
 	"sort"
 
 	"github.com/google/uuid"
-	"github.com/rr173/task157-terminology/internal/model"
+	"terminology/internal/model"
 )
 
 func (s *Service) recordAudit(ctx context.Context, libraryID, entityType, entityID, action, actor, message string, metadata map[string]any) error {
