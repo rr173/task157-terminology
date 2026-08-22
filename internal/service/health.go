@@ -37,7 +37,7 @@ func (s *Service) HealthReport(ctx context.Context) (model.HealthReport, error) 
 		}
 	}
 	for _, suggestion := range suggestions {
-		if suggestion.Status == model.SuggestionOpen {
+		if suggestion.Status.Reviewable() {
 			report.OpenReviews++
 		}
 	}

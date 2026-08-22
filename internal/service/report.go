@@ -31,9 +31,11 @@ func (s *Service) LibraryReport(ctx context.Context, id string) (model.LibraryRe
 			return r, e
 		}
 		for _, v := range x {
-			switch v.Status {
-			case model.SuggestionOpen:
+			if v.Status.Reviewable() {
 				r.OpenSuggestions++
+				continue
+			}
+			switch v.Status {
 			case model.SuggestionAccepted:
 				r.Accepted++
 			case model.SuggestionIgnored:
