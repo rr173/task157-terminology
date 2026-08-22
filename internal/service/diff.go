@@ -41,17 +41,10 @@ func (s *Service) Diff(ctx context.Context, earlier, later string) (model.Diff, 
 			out.RemovedFragments++
 		}
 	}
-	var tasks []model.CheckTask
-	_ = s.store.List(ctx, "task", a.LibraryID, &tasks)
-	for _, t := range tasks {
-		items, _ := s.Suggestions(ctx, t.ID)
-		for _, item := range items {
-			if item.DocumentID == a.ID && item.Status == model.SuggestionOpen {
-				item.Status = model.SuggestionExpired
-				_ = s.store.Save(ctx, "suggestion", item.ID, item.TaskID, 0, item)
-				out.InvalidatedSuggestions++
-			}
-		}
+	count, err := s.expiredSuggestionsForDocument(ctx, a.ID)
+	if err != nil {
+		return out, err
 	}
+	out.InvalidatedSuggestions = count
 	return out, nil
 }

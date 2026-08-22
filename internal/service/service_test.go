@@ -34,4 +34,11 @@ func TestWorkflow(t *testing.T) {
 	if e != nil || task.Status != model.TaskSucceeded || len(items) == 0 {
 		t.Fatal(task, items, e)
 	}
+	if _, replayed, e := s.ImportDocument(ctx, l.ID, model.DocumentInput{ExternalID: "a", Language: "zh", Fingerprint: "replacement", Fragments: []model.FragmentInput{{Key: "1", Text: "请保存", Position: 1}}}); e != nil || replayed {
+		t.Fatalf("replace document: replayed=%v err=%v", replayed, e)
+	}
+	updated, e := s.Suggestions(ctx, task.ID)
+	if e != nil || updated[0].Status != model.SuggestionExpired {
+		t.Fatalf("old suggestion should expire after replacement: %#v err=%v", updated, e)
+	}
 }

@@ -96,7 +96,12 @@ func (s *Service) ImportDocument(ctx context.Context, libraryID string, input mo
 		if doc.ExternalID == input.ExternalID && doc.Version >= version {
 			version = doc.Version + 1
 			doc.Status = model.DocumentSuperseded
-			_ = s.store.Save(ctx, "document", doc.ID, libraryID, doc.Version, doc)
+			if err = s.store.Save(ctx, "document", doc.ID, libraryID, doc.Version, doc); err != nil {
+				return model.Document{}, false, err
+			}
+			if _, err = s.expireOpenSuggestionsForDocument(ctx, doc.ID); err != nil {
+				return model.Document{}, false, err
+			}
 		}
 	}
 	v := model.Document{ID: uuid.NewString(), LibraryID: libraryID, Fingerprint: input.Fingerprint, ExternalID: input.ExternalID, Language: input.Language, Version: version, Status: model.DocumentImported, CreatedAt: s.now().UTC()}
