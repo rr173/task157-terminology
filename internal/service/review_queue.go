@@ -8,9 +8,6 @@ import (
 	"terminology/internal/model"
 )
 
-// ReviewQueue collects suggestions across all tasks in a library. Reviewers
-// can use it to work through current terminology conflicts without knowing
-// which import/check task created each suggestion.
 func (s *Service) ReviewQueue(ctx context.Context, query model.ReviewQueueQuery) (model.ReviewQueue, error) {
 	if err := query.Validate(); err != nil {
 		return model.ReviewQueue{}, err
@@ -67,8 +64,14 @@ func (s *Service) libraryTasks(ctx context.Context, libraryID string) ([]model.C
 }
 
 func matchesReviewQueue(item model.Suggestion, query model.ReviewQueueQuery) bool {
-	if query.Status != "" && item.Status != query.Status {
-		return false
+	if query.Status != "" {
+		if query.Status == model.SuggestionOpen {
+			if !item.Status.Reviewable() {
+				return false
+			}
+		} else if item.Status != query.Status {
+			return false
+		}
 	}
 	if language := strings.TrimSpace(query.Language); language != "" && item.Language != language {
 		return false

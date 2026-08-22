@@ -6,9 +6,6 @@ import (
 	"terminology/internal/model"
 )
 
-// expireOpenSuggestionsForDocument closes review work tied to one document
-// version. A replacement document has different source text, so reviewers
-// must not be able to approve recommendations made from the old snapshot.
 func (s *Service) expireOpenSuggestionsForDocument(ctx context.Context, documentID string) (int, error) {
 	var tasks []model.CheckTask
 	if err := s.store.All(ctx, "task", &tasks); err != nil {
