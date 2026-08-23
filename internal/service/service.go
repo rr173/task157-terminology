@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"github.com/google/uuid"
+	"strings"
 	"sync"
 	"terminology/internal/consistency"
 	"terminology/internal/matcher"
@@ -67,6 +68,13 @@ func (s *Service) Publish(ctx context.Context, libraryID string) (model.Library,
 	}
 	if len(terms) == 0 {
 		return v, fmt.Errorf("library requires terms")
+	}
+	issues, err := s.ValidateTermSet(ctx, libraryID)
+	if err != nil {
+		return v, err
+	}
+	if len(issues) > 0 {
+		return v, fmt.Errorf("library has conflicting terms: %s", strings.Join(issues, "; "))
 	}
 	v.Status = model.LibraryPublished
 	v.Version++

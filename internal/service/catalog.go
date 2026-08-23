@@ -84,6 +84,7 @@ func (s *Service) ValidateTermSet(ctx context.Context, libraryID string) ([]stri
 	for _, term := range terms {
 		key := strings.ToLower(term.Concept + "|" + term.Language)
 		if previous, ok := seen[key]; ok && previous.Preferred != term.Preferred {
+			issues = append(issues, fmt.Sprintf("%s has conflicting preferred translations %q and %q", term.Concept, previous.Preferred, term.Preferred))
 			continue
 		}
 		seen[key] = term

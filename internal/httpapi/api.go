@@ -78,7 +78,7 @@ func (a *API) term(w http.ResponseWriter, r *http.Request) {
 func (a *API) publish(w http.ResponseWriter, r *http.Request) {
 	v, e := a.S.Publish(r.Context(), r.PathValue("id"))
 	if e != nil {
-		write(w, v)
+		fail(w, e)
 		return
 	}
 	write(w, v)
