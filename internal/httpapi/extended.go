@@ -27,7 +27,7 @@ func (a *API) libraryRename(w http.ResponseWriter, r *http.Request) {
 	}
 	v, err := a.S.RenameLibrary(r.Context(), r.PathValue("id"), body.Name, body.Actor)
 	if err != nil {
-		write(w, v)
+		fail(w, err)
 		return
 	}
 	write(w, v)

@@ -5,6 +5,10 @@ import "fmt"
 func (s SuggestionStatus) Reviewable() bool { return s == SuggestionOpen }
 func (s TaskStatus) Terminal() bool         { return s == TaskSucceeded || s == TaskFailed }
 func (s DocumentStatus) Current() bool      { return s == DocumentImported || s == DocumentChecked }
+
+// Archived reports whether the library has been retired. Archiving is
+// irreversible, so every mutating entry point must reject an archived library.
+func (s LibraryStatus) Archived() bool { return s == LibraryRetired }
 func TransitionTask(a, b TaskStatus) error {
 	ok := map[TaskStatus]map[TaskStatus]bool{TaskPending: {TaskRunning: true}, TaskRunning: {TaskSucceeded: true, TaskFailed: true}, TaskFailed: {TaskPending: true}}
 	if a == b || ok[a][b] {

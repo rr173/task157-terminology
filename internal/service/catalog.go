@@ -20,6 +20,9 @@ func (s *Service) RenameLibrary(ctx context.Context, id, name, actor string) (mo
 	if err := s.store.Require(ctx, "library", id, &library); err != nil {
 		return library, err
 	}
+	if library.Status.Archived() {
+		return library, fmt.Errorf("library is archived")
+	}
 	old := library.Name
 	library.Name = strings.TrimSpace(name)
 	library.Version++

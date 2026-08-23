@@ -41,6 +41,9 @@ func (s *Service) AddTerm(ctx context.Context, libraryID string, input model.Ter
 	if err != nil {
 		return model.Term{}, err
 	}
+	if library.Status.Archived() {
+		return model.Term{}, fmt.Errorf("library is archived")
+	}
 	v := model.Term{ID: uuid.NewString(), LibraryID: libraryID, Concept: input.Concept, Language: input.Language, Preferred: input.Preferred, Forbidden: input.Forbidden, CreatedAt: s.now().UTC()}
 	return v, s.store.Save(ctx, "term", v.ID, libraryID, library.Version, v)
 }
@@ -54,6 +57,9 @@ func (s *Service) Publish(ctx context.Context, libraryID string) (model.Library,
 	v, err := s.Library(ctx, libraryID)
 	if err != nil {
 		return v, err
+	}
+	if v.Status.Archived() {
+		return v, fmt.Errorf("library is archived")
 	}
 	terms, err := s.Terms(ctx, libraryID)
 	if err != nil {
