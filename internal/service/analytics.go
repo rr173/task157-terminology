@@ -51,7 +51,7 @@ func (s *Service) Coverage(ctx context.Context, libraryID string) (model.Coverag
 		return report, err
 	}
 	for _, suggestion := range suggestions {
-		if (suggestion.Status == model.SuggestionOpen || suggestion.Status == model.SuggestionExpired) && belongsToLibrary(suggestion, documents) {
+		if suggestion.Status == model.SuggestionOpen && belongsToLibrary(suggestion, documents) {
 			report.Suggestions++
 		}
 	}

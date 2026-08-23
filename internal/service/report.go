@@ -31,7 +31,7 @@ func (s *Service) LibraryReport(ctx context.Context, id string) (model.LibraryRe
 			return r, e
 		}
 		for _, v := range x {
-			if v.Status == model.SuggestionOpen || v.Status == model.SuggestionExpired {
+			if v.Status == model.SuggestionOpen {
 				r.OpenSuggestions++
 				continue
 			}
