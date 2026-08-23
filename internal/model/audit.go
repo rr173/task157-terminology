@@ -107,10 +107,8 @@ func (v ImportBatchInput) Validate() error {
 	if len(v.Documents) == 0 {
 		return fmt.Errorf("batch must contain documents")
 	}
-	for index, document := range v.Documents {
-		if err := document.Validate(); err != nil {
-			return fmt.Errorf("document %d: %w", index, err)
-		}
-	}
+	// Individual documents are validated inside ImportBatch so that a single
+	// malformed entry is reported as a per-document rejection rather than
+	// aborting the whole submission.
 	return nil
 }

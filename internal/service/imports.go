@@ -26,10 +26,14 @@ func (s *Service) ImportBatch(ctx context.Context, libraryID string, input model
 	if err := s.store.Save(ctx, "batch", batch.ID, libraryID, 0, batch); err != nil {
 		return batch, err
 	}
-	for _, documentInput := range input.Documents {
+	for index, documentInput := range input.Documents {
 		document, replayed, importErr := s.ImportDocument(ctx, libraryID, documentInput)
 		if importErr != nil {
-			return batch, importErr
+			// Continue importing the remaining documents so a single
+			// malformed entry does not discard the whole submission.
+			batch.Rejected++
+			batch.Errors = append(batch.Errors, fmt.Sprintf("document %d: %v", index, importErr))
+			continue
 		}
 		batch.DocumentIDs = append(batch.DocumentIDs, document.ID)
 		if replayed {

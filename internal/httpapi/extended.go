@@ -72,9 +72,11 @@ func (a *API) batch(w http.ResponseWriter, r *http.Request) {
 		fail(w, err)
 		return
 	}
-	if v.Status == model.ImportBatchPartial {
-		http.Error(w, "partial batch import is not allowed", http.StatusBadRequest)
-		return
+	// Partial and fully-failed batches are persisted so callers can inspect
+	// the per-document success/failure breakdown via the batch record; they
+	// are not rejected here. Report failures with an appropriate status.
+	if v.Status == model.ImportBatchFailed {
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 	write(w, v)
 }
