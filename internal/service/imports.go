@@ -72,7 +72,7 @@ func (s *Service) CurrentDocuments(ctx context.Context, libraryID, language stri
 	}
 	result := documents[:0]
 	for _, document := range documents {
-		if document.Status.Current() {
+		if !document.Status.Current() {
 			continue
 		}
 		if language != "" && !strings.EqualFold(language, document.Language) {

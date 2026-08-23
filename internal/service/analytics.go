@@ -20,7 +20,7 @@ func (s *Service) Coverage(ctx context.Context, libraryID string) (model.Coverag
 	report := model.CoverageReport{LibraryID: libraryID, Documents: len(documents), GeneratedAt: s.now().UTC()}
 	byLanguage := map[string]*model.LanguageCoverage{}
 	for _, document := range documents {
-		if document.Status.Current() {
+		if !document.Status.Current() {
 			continue
 		}
 		coverage := byLanguage[document.Language]
