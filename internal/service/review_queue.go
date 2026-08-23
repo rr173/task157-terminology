@@ -9,6 +9,9 @@ import (
 )
 
 func (s *Service) ReviewQueue(ctx context.Context, query model.ReviewQueueQuery) (model.ReviewQueue, error) {
+	if err := query.Validate(); err != nil {
+		return model.ReviewQueue{}, err
+	}
 	if _, err := s.Library(ctx, query.LibraryID); err != nil {
 		return model.ReviewQueue{}, err
 	}

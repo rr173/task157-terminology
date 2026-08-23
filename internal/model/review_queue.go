@@ -24,6 +24,9 @@ func (q ReviewQueueQuery) Validate() error {
 	if q.Offset < 0 {
 		return fmt.Errorf("offset must not be negative")
 	}
+	if q.Status != "" && !q.Status.Valid() {
+		return fmt.Errorf("unsupported status %q", q.Status)
+	}
 	return nil
 }
 

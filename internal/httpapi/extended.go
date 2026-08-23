@@ -125,7 +125,7 @@ func (a *API) reviewQueue(w http.ResponseWriter, r *http.Request) {
 	query := model.ReviewQueueQuery{LibraryID: r.PathValue("id"), Language: r.URL.Query().Get("language"), Concept: r.URL.Query().Get("concept"), Status: model.SuggestionStatus(r.URL.Query().Get("status")), Limit: limit, Offset: offset}
 	v, err := a.S.ReviewQueue(r.Context(), query)
 	if err != nil {
-		write(w, v)
+		fail(w, err)
 		return
 	}
 	write(w, v)
