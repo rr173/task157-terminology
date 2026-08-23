@@ -41,7 +41,9 @@ func (s *Service) Diff(ctx context.Context, earlier, later string) (model.Diff, 
 			out.RemovedFragments++
 		}
 	}
-	count, err := s.expiredSuggestionsForDocument(ctx, b.ID)
+	// Suggestions are invalidated against the earlier (superseded) document when a
+	// new version replaces it, so the diff must count expired suggestions there.
+	count, err := s.expiredSuggestionsForDocument(ctx, a.ID)
 	if err != nil {
 		return out, err
 	}
