@@ -23,6 +23,9 @@ func (s *Service) Recover(ctx context.Context) ([]string, error) {
 	out := []string{}
 	for _, task := range tasks {
 		if task.Status == model.TaskRunning {
+			if err := model.TransitionTask(task.Status, model.TaskPending); err != nil {
+				return out, err
+			}
 			task.Status = model.TaskPending
 			if err := s.store.Save(ctx, "task", task.ID, task.LibraryID, 0, task); err != nil {
 				return out, err
