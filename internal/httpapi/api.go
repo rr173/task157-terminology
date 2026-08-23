@@ -102,7 +102,7 @@ func (a *API) check(w http.ResponseWriter, r *http.Request) {
 	}
 	v, x, e := a.S.Check(r.Context(), r.PathValue("id"), ids)
 	if e != nil {
-		write(w, map[string]any{"task": v, "suggestions": x})
+		fail(w, e)
 		return
 	}
 	write(w, map[string]any{"task": v, "suggestions": x})

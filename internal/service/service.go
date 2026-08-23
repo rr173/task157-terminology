@@ -146,6 +146,9 @@ func (s *Service) Check(ctx context.Context, libraryID string, ids []string) (mo
 	}
 	selected := []model.Document{}
 	for _, doc := range documents {
+		if !doc.Status.Current() {
+			continue
+		}
 		for _, id := range ids {
 			if doc.ID == id {
 				selected = append(selected, doc)
